@@ -37,8 +37,8 @@ jobs:
 
       - name: Setup github account
         run: |
-          git config --global user.name ${{ github.event.user.login }}
-          git config --global user.email ${{ github.event.user.email }}
+          git config --global user.name ${{ github.event.pusher.name }}
+          git config --global user.email ${{ github.event.pusher.email }}
 
       - name: Install
         if: steps.cache.outputs.cache-hit != 'true'
