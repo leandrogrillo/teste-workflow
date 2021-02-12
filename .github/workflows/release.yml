@@ -10,7 +10,7 @@ jobs:
     name: Release
     runs-on: ubuntu-20.04
     env:
-      GITHUB_ACCESS_TOKEN: ${{ secrets.GIT_BOT_TOKEN }}
+      GITHUB_ACCESS_TOKEN: ${{ secrets.PAT }}
 
     steps:
       - name: Checkout
@@ -42,7 +42,7 @@ jobs:
       
       - uses: peterjgrainger/action-create-branch@v2.0.1
         env:
-          GITHUB_TOKEN: ${{ secrets.GIT_BOT_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PAT }}
         with:
           branch: 'package-version-${{ github.sha }}'
 
@@ -67,4 +67,4 @@ jobs:
           pr_assignee: 'leandrogrillo'
           pr_title: 'chore: update package versions'
           pr_template: '.github/workflows/templates/release.md'
-          github_token: ${{ secrets.GIT_BOT_TOKEN }}
+          github_token: ${{ secrets.PAT }}
