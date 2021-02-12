@@ -39,6 +39,18 @@ jobs:
         run: |
           git config --global user.name ${{ github.event.pusher.name }}
           git config --global user.email ${{ github.event.pusher.email }}
+      
+      - uses: peterjgrainger/action-create-branch@v2.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GIT_BOT_TOKEN }}
+        with:
+          branch: 'package-version-${{ github.sha }}'
+
+      - name: Checkout to ${{ github.sha }}
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: '0'
+          ref: 'package-version-${{ github.sha }}'
 
       - name: Install
         if: steps.cache.outputs.cache-hit != 'true'
@@ -46,3 +58,13 @@ jobs:
 
       - name: Release
         run: yarn lerna publish --conventional-commits --yes
+
+      - name: Create pull request
+        uses: repo-sync/pull-request@v2
+        with:
+          source_branch: 'package-version-${{ github.sha }}'
+          destination_branch: 'main'
+          pr_assignee: 'leandrogrillo'
+          pr_title: 'chore: update package versions'
+          pr_template: '.github/workflows/templates/release.md'
+          github_token: ${{ secrets.GIT_BOT_TOKEN }}
