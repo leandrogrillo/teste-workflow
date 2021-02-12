@@ -1,0 +1,12 @@
+{
+  "name": "teste-workflow",
+  "version": "1.0.0",
+  "author": "Leandro Grillo <leandrocesar.grillo@gmail.com>",
+  "license": "MIT",
+  "workspaces": [
+    "packages/*"
+  ],
+  "dependencies": {
+    "lerna": "^3.22.1"
+  }
+}
