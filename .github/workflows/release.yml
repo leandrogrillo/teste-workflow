@@ -1,0 +1,25 @@
+name: Release
+
+on:
+  push:
+    branchs:
+      - main
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: '0'
+          ref: 'main'
+
+      - name: Setup node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+          registry-url: https://npm.pkg.github.com
+          scope: '@leroy-merlin-br'
