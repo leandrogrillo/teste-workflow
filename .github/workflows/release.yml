@@ -26,7 +26,17 @@ jobs:
           registry-url: https://npm.pkg.github.com
           scope: '@leroy-merlin-br'
 
+      - name: Retrieving cached dependencies
+        uses: actions/cache@v2
+        id: cache
+        with:
+          key: yarn-$LOCK_HASH
+          path: ./node_modules
+        env:
+          LOCK_HASH: ${{ hashFiles('**/yarn.lock') }}
+
       - name: Install
+        if: steps.cache.outputs.cache-hit != 'true'
         run: yarn
 
       - name: Release
