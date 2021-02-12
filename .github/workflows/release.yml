@@ -9,6 +9,8 @@ jobs:
   release:
     name: Release
     runs-on: ubuntu-20.04
+    env:
+      GITHUB_ACCESS_TOKEN: ${{ secrets.GIT_BOT_TOKEN }}
 
     steps:
       - name: Checkout
@@ -23,3 +25,9 @@ jobs:
           node-version: 12
           registry-url: https://npm.pkg.github.com
           scope: '@leroy-merlin-br'
+
+      - name: Install
+        run: yarn
+
+      - name: Release
+        run: yarn lerna publish --conventional-commits --yes
