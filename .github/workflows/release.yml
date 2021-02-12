@@ -24,7 +24,7 @@ jobs:
         with:
           node-version: 12
           registry-url: https://npm.pkg.github.com
-          scope: '@leroy-merlin-br'
+          scope: '@leandrogrillo'
 
       - name: Retrieving cached dependencies
         uses: actions/cache@v2
